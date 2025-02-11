@@ -23,7 +23,7 @@
         }
 
         header img {
-            width: 200px;
+            width: 300px;
             height: auto;
             border-radius: 50%; /* Redondear el logo */
             margin-top: 10px;
@@ -235,6 +235,34 @@
     .thumbnail:hover {
       transform: scale(1.1); /* Efecto de zoom al pasar el mouse */
     }
+
+    .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background: pink;
+            margin: 15% auto;
+            padding: 20px;
+            width: 60%;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .modal-content img {
+            width: 100px;
+            height: auto;
+        }
+        .close {
+            float: right;
+            font-size: 28px;
+            cursor: pointer;
+        }
     </style>
     </head>
     <body>
@@ -279,17 +307,14 @@
         <section id="catalogo" class="catalogo">
             <h2>Catálogo de 10 Donitas</h2>
             <p class="subtitle">Elige cualquiera de las opciones de nuestro
-                catálogo de deliciosas donitas.</p>
+                catálogo de 10 deliciosas donitas.</p>
             <div class="carousel" id="catalogo-carousel">
                 <!-- Producto 1 -->
-                <div class="product">
+                <div class="product" onclick="openModal('1',title1,price1,image1)">
                     <img
                         src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D001.jpg?raw=true"
                         alt="Donitas con chispas de chocolate">
-                    <h3>10 Donitas con chispas de chocolate</h3>
-                    <p>¡Deliciosa elección! Prueba el exquisito sabor del
-                        chocolate y las chispas de colores acompañado de una
-                        rica y caramelizada capa de dulce de leche.</p>
+                    <h3>10 Donitas con chispas de chocolate y de colores</h3>
                     <p class="price">L.110 + L.10 – Domicilio céntrico</p>
                     <a
                         href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2010%20Donitas%20con%20chispas%20de%20chocolate!%F0%9F%8D%A9"
@@ -302,14 +327,11 @@
                 </div>
 
                 <!-- Producto 2 -->
-                <div class="product">
+                <div class="product" onclick="openModal('2',title2,price2,image2)">
                     <img
                         src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D002.jpg?raw=true"
                         alt="Donitas con fresas">
-                    <h3>10 Donitas con fresas</h3>
-                    <p>¡Dulce elección! Prueba el exquisito sabor del chocolate
-                        y las fresas más ricas acompañado de una deliciosa y
-                        caramelizada capa de dulce de leche.</p>
+                    <h3>10 Donitas con fresas y chispas de chocolate</h3>
                     <p class="price">L.120 + L.10 – Domicilio céntrico</p>
                     <a
                         href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2010%20Donitas%20con%20fresas!%F0%9F%8D%A9"
@@ -322,15 +344,11 @@
                 </div>
 
                 <!-- Producto 3 -->
-                <div class="product">
+                <div class="product" onclick="openModal('3',title3,price3,image3)">
                     <img
                         src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D003.jpg?raw=true"
                         alt="Donitas con banano">
-                    <h3>10 Donitas con banano</h3>
-                    <p>¡Te gusta el banano! No te preocupes, puedes probarlo
-                        acompañado del exquisito sabor de la leche condensada y
-                        las fresas más ricas, con una deliciosa capa de dulce de
-                        leche.</p>
+                    <h3>10 Donitas con banano y fresas</h3>
                     <p class="price">L.130 + L.10 – Domicilio céntrico</p>
                     <a
                         href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2010%20Donitas%20con%20banano!%F0%9F%8D%A9"
@@ -343,14 +361,11 @@
                 </div>
 
                 <!-- Producto 4 -->
-                <div class="product">
+                <div class="product" onclick="openModal('4',title4,price4,image4)">
                     <img
                         src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D004.jpg?raw=true"
                         alt="Donitas con chocolate">
-                    <h3>10 Donitas con chocolate</h3>
-                    <p>¡Chocolate, qué rico! Ten un buen día probando de una en
-                        una las chispitas de chocolate, las fresas más ricas,
-                        con una deliciosa capa de dulce de leche.</p>
+                    <h3>10 Donitas con chocolate chipas y fresas</h3>
                     <p class="price">L.120 + L.10 – Domicilio céntrico</p>
                     <a
                         href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2010%20Donitas%20con%20chocolate!%F0%9F%8D%A9"
@@ -363,14 +378,11 @@
                 </div>
 
                 <!-- Producto 5 -->
-                <div class="product">
+                <div class="product" onclick="openModal('5',title5,price5,image5)">
                     <img
                         src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D005.jpg?raw=true"
-                        alt="Donitas todo fresas">
-                    <h3>10 Donitas todo fresas</h3>
-                    <p>¡Eres muy fresa! Te encantan las fresas, pruébalas, son
-                        las más ricas, con una deliciosa capa de dulce de
-                        leche.</p>
+                        alt="Donitas todo fresas ">
+                    <h3>10 Donitas todo fresas y leche condensada</h3>
                     <p class="price">L.130 + L.10 – Domicilio céntrico</p>
                     <a
                         href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2010%20Donitas%20todo%20fresas!%F0%9F%8D%A9"
@@ -383,14 +395,11 @@
                 </div>
 
                 <!-- Producto 6 -->
-                <div class="product">
+                <div class="product" onclick="openModal('6',title6,price6,image6)">
                     <img
                         src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D006.jpg?raw=true"
                         alt="Donitas con oreo">
-                    <h3>10 Donitas con oreo</h3>
-                    <p>¡Oreo, qué rico! Te encantan las galletas, pruébalas con
-                        tus donitas, acompañadas de fresas y una deliciosa capa
-                        de dulce de leche.</p>
+                    <h3>10 Donitas con fresas y oreo</h3>
                     <p class="price">L.120 + L.10 – Domicilio céntrico</p>
                     <a
                         href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2010%20Donitas%20con%20oreo!%F0%9F%8D%A9"
@@ -403,13 +412,11 @@
                 </div>
 
                 <!-- Producto 7 -->
-                <div class="product">
+                <div class="product" onclick="openModal('7',title7,price7,image7)">
                     <img
                         src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D007.jpg?raw=true"
                         alt="Donitas con cacahuate">
                     <h3>10 Donitas con cacahuate</h3>
-                    <p>¡Cacahuate! Te encanta, pruébalo sin dudas, acompañado de
-                        una deliciosa capa de dulce de leche.</p>
                     <p class="price">L.110 + L.10 – Domicilio céntrico</p>
                     <a
                         href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2010%20Donitas%20con%20cacahuate!%F0%9F%8D%A9"
@@ -429,21 +436,22 @@
             </div>
         </section>
 
-         <!-- Sección Catálogo de 12 donitas  -->
-         <section id="catalogo2" class="catalogo">
+        <!-- Sección Catálogo de 12 donitas  -->
+        <section id="catalogo2" class="catalogo">
             <h2>Catálogo de 12 Donitas</h2>
-            <p class="subtitle">Elige cualquiera de las opciones de nuestro
-                catálogo de deliciosas donitas.</p>
+            <p class="subtitle">¡Comparte! ¡Comparte! ¡Comparte! Elige
+                cualquiera de las opciones de nuestro
+                catálogo de 12 deliciosas donitas.</p>
             <div class="carousel" id="catalogo-carousel2">
-                <!-- Producto 1 -->
+                <!-- Producto 16 -->
                 <div class="product">
                     <img
-                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D001.jpg?raw=true"
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D016.jpg?raw=true"
                         alt="Donitas con chispas de chocolate">
-                    <h3>10 Donitas con chispas de chocolate</h3>
-                    <p class="price">L.110 + L.10 – Domicilio céntrico</p>
+                    <h3>12 Donitas con fresa y chispas</h3>
+                    <p class="price">L.140 + L.10 – Domicilio céntrico</p>
                     <a
-                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2010%20Donitas%20con%20chispas%20de%20chocolate!%F0%9F%8D%A9"
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2012%20Donitas!%F0%9F%8D%A9"
                         target="_blank">
                         <img
                             src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
@@ -452,13 +460,558 @@
                     </a>
                 </div>
 
-                
+                <!-- Producto 17 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D017.jpg?raw=true"
+                        alt="Donitas con chispas de chocolate">
+                    <h3>12 Donitas con fresas, banano y chipas </h3>
+                    <p class="price">L.150 + L.10 – Domicilio céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2012%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 18 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D018.jpg?raw=true"
+                        alt="Donitas con chispas de chocolate">
+                    <h3>12 Donitas con chispas, banano y fresas </h3>
+                    <p class="price">L.150 + L.10 – Domicilio céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2012%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 19 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D019.jpg?raw=true"
+                        alt="Donitas con chispas de chocolate">
+                    <h3>12 Donitas con cacahuate y fresas </h3>
+                    <p class="price">L.140 + L.10 – Domicilio céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2012%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 20 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D020.jpg?raw=true"
+                        alt="Donitas con chispas de chocolate">
+                    <h3>12 Donitas con coco y fresas </h3>
+                    <p class="price">L.140 + L.10 – Domicilio céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2012%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 21 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D021.jpg?raw=true"
+                        alt="Donitas fresas, cacahuate y chispas">
+                    <h3>12 Donitas con fresas, cacahuate y chispas </h3>
+                    <p class="price">L.140 + L.10 – Domicilio céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2012%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 22 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D022.jpg?raw=true"
+                        alt="Donitas con chispas de chocolate">
+                    <h3>12 Donitas con chispas de chocolate</h3>
+                    <p class="price">L.130 + L.10 – Domicilio céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2012%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 23 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D023.jpg?raw=true"
+                        alt="Donitas con cacahuates">
+                    <h3>12 Donitas con cacahuates </h3>
+                    <p class="price">L.130 + L.10 – Domicilio céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2012%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 24 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D024.jpg?raw=true"
+                        alt="Donitas con todo fresas y leche condensada">
+                    <h3>12 Donitas con todo fresas y leche condensada </h3>
+                    <p class="price">L.150 + L.10 – Domicilio céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2012%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 25 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D025.jpg?raw=true"
+                        alt="Donitas con chispas de chocolate y cacahuates">
+                    <h3>12 Donitas con chispas de chocolate y cacahuates</h3>
+                    <p class="price">L.130 + L.10 – Domicilio céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%2012%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+
             </div>
             <div class="carousel-controls">
                 <button
                     onclick="scrollCarousel('prev', 'catalogo-carousel2')">&#10094;</button>
                 <button
                     onclick="scrollCarousel('next', 'catalogo-carousel2')">&#10095;</button>
+            </div>
+        </section>
+
+        <!-- Sección Catálogo de 15 donitas  -->
+        <section id="catalogo3" class="catalogo">
+            <h2>Catálogo de 15 y 18 Donitas</h2>
+            <p class="subtitle">También te ofrecemos calidad y cantidad pues si
+                gustas puedes elegir cualquiera de las opciones de nuestro
+                catálogo de deliciosas donitas de 15 unidades o más.</p>
+            <div class="carousel" id="catalogo-carousel3">
+                <!-- Producto 26 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D026.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con chispas y fresas</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+
+                <!-- Producto 27 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D027.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con cacahuate, chispas y fresas</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 28 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D028.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con chispas, fresas y leche condensada</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 29 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D029.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con todo fresas y leche condensada</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 30 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D030.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con chispas, fresas y dulce de leche</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 31 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D031.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con cacahuates, fresas y leche condensada</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 32 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D032.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con todo fresas y leche condensada</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 33 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D033.jpg?raw=true"
+                        alt="Donitas con chispas de chocolate">
+                    <h3>Donitas con coco, chispas y fresas </h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 34 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D034.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con cacahuate chispas y fresas</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 35 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D035.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con dulce de leche y todo fresas </h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+
+                <!-- Producto 36 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D036.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con chispitas, cacahuates y fresas</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 37 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D037.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con cacahuates, chispas y fresas</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 38 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D038.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con chispas y fresas</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 39 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D039.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con chispitas de colores, chocolates y
+                        cacahuates</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 40 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D040.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con todo fresas y chispas</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 41 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D041.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con coco, crema y dulce de leche</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 42 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D042.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con cacahuates, crema y chocolate</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 43 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D043.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con cacahuates, fresas y chispas de
+                        chocolate</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 44 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D044.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con coco, cacahuate, fresas y chispas</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+                <!-- Producto 45 -->
+                <div class="product">
+                    <img
+                        src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D045.jpg?raw=true"
+                        alt="Donitas">
+                    <h3>Donitas con cacahuate, coco y fresas</h3>
+                    <p class="price">15 donitas = L.170 + L.10 – Domicilio
+                        céntrico</p>
+                    <p class="price">18 donitas = L.200 + L.10 – Domicilio
+                        céntrico</p>
+                    <a
+                        href="https://api.whatsapp.com/send?phone=50488839080&text=%F0%9F%8D%A9Hola%20Mini%20Donitas,%20!quiero%20comprar%20Donitas!%F0%9F%8D%A9"
+                        target="_blank">
+                        <img
+                            src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/logo_whatsapp.png?raw=true"
+                            alt="WhatsApp">
+                        Comprar ahora
+                    </a>
+                </div>
+
+            </div>
+            <div class="carousel-controls">
+                <button
+                    onclick="scrollCarousel('prev', 'catalogo-carousel3')">&#10094;</button>
+                <button
+                    onclick="scrollCarousel('next', 'catalogo-carousel3')">&#10095;</button>
             </div>
         </section>
 
@@ -490,7 +1043,6 @@
                 <img
                     src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D012.jpg?raw=true"
                     alt="San Valentín 5">
-
                 <img
                     src="https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D015.jpg?raw=true"
                     alt="San Valentín 8">
@@ -515,6 +1067,16 @@
             <div class="thank-you-message">
                 Ten un bonito día 💖.
             </div>
+
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <img id="modal-image" src="" alt="" style="height: 250px; width: 250px; border-radius: 15px;">
+                    <h3 id="modal-title"></h3>
+                    <h3 id="modal-price" style="color: #ff1a75;"></h3>
+                    <a id="modal-link" href="#" target="_blank">Comprar ahora</a>
+                </div>
+            </div>
         </section>
 
         <script>
@@ -528,6 +1090,47 @@
                 carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
             }
         }
+
+        function openModal(id, title, price, image) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-price').textContent = price;
+            document.getElementById('modal-image').src = image;
+            document.getElementById('modal-link').href = `https://api.whatsapp.com/send?phone=50488839080&text=Hola Mini Donitas, ¡quiero comprar ${title}!`;
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Datos para el modal del catalogo de donitas de 10
+
+        const title1 = "10 Donitas con chispas de chocolate y de colores";
+        const title2 = "10 Donitas con fresas y chispas de chocolate";
+        const title3 = "10 Donitas con banano y fresas";
+        const title4 = "10 Donitas con chocolate chipas y fresas";
+        const title5 = "10 Donitas todo fresas y leche condensada";
+        const title6 = "10 Donitas con fresas y oreo";
+        const title7 = "10 Donitas con cacahuate";
+
+        const price1 = "L.110 + L.10 – Domicilio céntrico";
+        const price2 = "L.120 + L.10 – Domicilio céntrico";
+        const price3 = "L.130 + L.10 – Domicilio céntrico";
+        const price4 = "L.120 + L.10 – Domicilio céntrico";
+        const price5 = "L.130 + L.10 – Domicilio céntrico";
+        const price6 = "L.120 + L.10 – Domicilio céntrico";
+        const price7 = "L.110 + L.10 – Domicilio céntrico";
+
+        const image1 = "https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D001.jpg?raw=true";
+        const image2 = "https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D002.jpg?raw=true";
+        const image3 = "https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D003.jpg?raw=true";
+        const image4 = "https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D004.jpg?raw=true";
+        const image5 = "https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D005.jpg?raw=true";
+        const image6 = "https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D006.jpg?raw=true";
+        const image7 = "https://github.com/EmmanWayne/mini-donitas-web/blob/main/mini-donitas-products/D007.jpg?raw=true";
+
+
+
 
     </script>
     </body>
