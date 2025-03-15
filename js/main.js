@@ -72,7 +72,7 @@ function initCarousel(carouselElement) {
 
     // Autoplay
     function startAutoplay() {
-        autoplayInterval = setInterval(nextSlide, 5000);
+        autoplayInterval = setInterval(nextSlide, 15000);
     }
 
     function resetAutoplay() {
