@@ -107,91 +107,80 @@ document.querySelectorAll('.carousel').forEach(initCarousel);
 
 // Sistema de zoom para imágenes
 document.addEventListener('DOMContentLoaded', function() {
-    // Crear el modal una sola vez
     const modal = document.createElement('div');
     modal.className = 'modal';
     const modalImg = document.createElement('img');
     modalImg.className = 'modal-content';
     modal.appendChild(modalImg);
 
-    // Agregar funcionalidad de zoom a todas las imágenes zoomables
-    document.querySelectorAll('.zoomable, .menu-img').forEach(img => {
+    // Configuración de zoom
+    const zoomConfig = {
+        maxScale: 3,
+        minScale: 0.5,
+        defaultScale: 1,
+        scaleStep: 0.1
+    };
+
+    // Función para manejar el zoom
+    function handleZoom(element, deltaY) {
+        let scale = element.style.transform ? 
+            parseFloat(element.style.transform.replace('scale(', '').replace(')', '')) : 
+            zoomConfig.defaultScale;
+        
+        if (deltaY < 0) {
+            scale = Math.min(scale + zoomConfig.scaleStep, zoomConfig.maxScale);
+        } else {
+            scale = Math.max(scale - zoomConfig.scaleStep, zoomConfig.minScale);
+        }
+        
+        element.style.transform = `scale(${scale})`;
+        return scale;
+    }
+
+    // Agregar zoom a imágenes del menú
+    document.querySelectorAll('.menu-img').forEach(img => {
         img.addEventListener('click', function(e) {
-            // Prevenir que el carrusel cambie al hacer click
             e.stopPropagation();
-            
             modal.classList.add('active');
             modalImg.src = this.src;
+            
+            // Resetear el zoom al abrir
+            modalImg.style.transform = `scale(${zoomConfig.defaultScale})`;
+            
+            // Ajustar tamaño para móviles
+            modalImg.style.maxWidth = '90vw';
+            modalImg.style.maxHeight = '80vh';
+            modalImg.style.objectFit = 'contain';
+            
             document.body.appendChild(modal);
-            document.body.style.overflow = 'hidden'; // Prevenir scroll
+            document.body.style.overflow = 'hidden';
         });
     });
 
-    // Cerrar modal
-    modal.addEventListener('click', () => {
-        modal.classList.remove('active');
-        document.body.style.overflow = ''; // Restaurar scroll
-        if (modal.parentNode) {
-            modal.parentNode.removeChild(modal);
-        }
-    });
-
-    // Cerrar con tecla ESC
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            modal.click();
-        }
-    });
-
-    // Control de zoom con rueda del mouse
-    modalImg.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        let scale = modalImg.style.transform ? 
-            parseFloat(modalImg.style.transform.replace('scale(', '').replace(')', '')) : 
-            1;
-        
-        if (e.deltaY < 0) {
-            // Zoom in
-            scale = Math.min(scale + 0.1, 3);
-        } else {
-            // Zoom out
-            scale = Math.max(scale - 0.1, 0.5);
-        }
-        
-        modalImg.style.transform = `scale(${scale})`;
-    });
-
-    // Prevenir que la rueda del mouse haga scroll cuando el modal está abierto
-    modal.addEventListener('wheel', (e) => {
-        if (modal.classList.contains('active')) {
-            e.preventDefault();
-        }
-    });
-
-    // Manejar gestos táctiles para zoom
+    // Gestos táctiles mejorados
     let touchStartY = 0;
+    let currentScale = zoomConfig.defaultScale;
+
     modalImg.addEventListener('touchstart', (e) => {
         touchStartY = e.touches[0].clientY;
-    });
+    }, { passive: false });
 
     modalImg.addEventListener('touchmove', (e) => {
         e.preventDefault();
         const touchEndY = e.touches[0].clientY;
         const deltaY = touchStartY - touchEndY;
-
-        let scale = modalImg.style.transform ? 
-            parseFloat(modalImg.style.transform.replace('scale(', '').replace(')', '')) : 
-            1;
-
-        if (deltaY > 0) {
-            // Zoom in
-            scale = Math.min(scale + 0.05, 3);
-        } else {
-            // Zoom out
-            scale = Math.max(scale - 0.05, 0.5);
-        }
-
-        modalImg.style.transform = `scale(${scale})`;
+        
+        currentScale = handleZoom(modalImg, deltaY);
         touchStartY = touchEndY;
+    }, { passive: false });
+
+    // Cerrar modal
+    modal.addEventListener('click', () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        if (modal.parentNode) {
+            modal.parentNode.removeChild(modal);
+        }
+        currentScale = zoomConfig.defaultScale;
     });
 });
