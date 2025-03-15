@@ -1,46 +1,38 @@
-// Navegación
-const navButtons = document.querySelectorAll('.nav-btn');
-const sections = document.querySelectorAll('.section');
-
+// Navigation Functions
 function showSection(sectionId) {
-    sections.forEach(section => section.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+    });
     document.getElementById(sectionId).classList.add('active');
-    
-    navButtons.forEach(btn => btn.classList.remove('active'));
-    document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
 }
 
-// Event listeners para navegación
-navButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        showSection(button.dataset.section);
-    });
-});
-
-// Carrusel
+// Carousel Functions
 function initCarousel(carouselElement) {
     const slides = carouselElement.querySelectorAll('.carousel-slide');
+    const dotsContainer = carouselElement.querySelector('.carousel-dots');
     const prevBtn = carouselElement.querySelector('.prev');
     const nextBtn = carouselElement.querySelector('.next');
-    const dots = carouselElement.querySelector('.carousel-dots');
     let currentSlide = 0;
     let autoplayInterval;
 
-    // Crear dots para navegación
+    // Create dots
     slides.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.classList.add('dot');
+        const dot = document.createElement('button');
+        dot.className = 'dot';
+        dot.setAttribute('aria-label', `Ir a slide ${index + 1}`);
         if (index === 0) dot.classList.add('active');
         dot.addEventListener('click', () => goToSlide(index));
-        dots.appendChild(dot);
+        dotsContainer.appendChild(dot);
     });
 
     function updateSlides() {
         slides.forEach(slide => slide.classList.remove('active'));
-        carouselElement.querySelectorAll('.dot').forEach(dot => dot.classList.remove('active'));
-        
         slides[currentSlide].classList.add('active');
-        dots.children[currentSlide].classList.add('active');
+
+        // Update dots
+        const dots = dotsContainer.querySelectorAll('.dot');
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[currentSlide].classList.add('active');
     }
 
     function nextSlide() {
@@ -60,7 +52,7 @@ function initCarousel(carouselElement) {
     }
 
     function startAutoplay() {
-        autoplayInterval = setInterval(nextSlide, 15000);
+        autoplayInterval = setInterval(nextSlide, 5000);
     }
 
     function resetAutoplay() {
@@ -68,13 +60,13 @@ function initCarousel(carouselElement) {
         startAutoplay();
     }
 
-    // Event listeners del carrusel
-    prevBtn.addEventListener('click', () => {
+    // Event Listeners
+    prevBtn?.addEventListener('click', () => {
         prevSlide();
         resetAutoplay();
     });
 
-    nextBtn.addEventListener('click', () => {
+    nextBtn?.addEventListener('click', () => {
         nextSlide();
         resetAutoplay();
     });
@@ -85,11 +77,36 @@ function initCarousel(carouselElement) {
 
     carouselElement.addEventListener('mouseleave', startAutoplay);
 
-    // Iniciar autoplay
+    // Touch Events for Mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carouselElement.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    carouselElement.addEventListener('touchmove', (e) => {
+        touchEndX = e.touches[0].clientX;
+    }, { passive: true });
+
+    carouselElement.addEventListener('touchend', () => {
+        const swipeDistance = touchEndX - touchStartX;
+        if (Math.abs(swipeDistance) > 50) {
+            if (swipeDistance > 0) {
+                prevSlide();
+            } else {
+                nextSlide();
+            }
+            resetAutoplay();
+        }
+    });
+
+    // Initialize
+    updateSlides();
     startAutoplay();
 }
 
-// Sistema de visualización de imágenes
+// Image Viewer Functions
 function initImageViewer() {
     const modal = document.createElement('div');
     modal.className = 'modal';
@@ -97,7 +114,6 @@ function initImageViewer() {
     modalImg.className = 'modal-content';
     modal.appendChild(modalImg);
 
-    // Abrir modal
     document.querySelectorAll('.menu-img').forEach(img => {
         img.addEventListener('click', function() {
             modal.classList.add('active');
@@ -107,19 +123,23 @@ function initImageViewer() {
         });
     });
 
-    // Cerrar modal
     modal.addEventListener('click', () => {
         modal.classList.remove('active');
         document.body.style.overflow = '';
-        if (modal.parentNode) {
-            modal.parentNode.removeChild(modal);
-        }
+        modal.parentNode?.removeChild(modal);
     });
 }
 
-// Inicialización
+// Initialize Everything
 document.addEventListener('DOMContentLoaded', () => {
     showSection('donitas');
     document.querySelectorAll('.carousel').forEach(initCarousel);
     initImageViewer();
+
+    // Navigation Button Listeners
+    document.querySelectorAll('.nav-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            showSection(button.dataset.section);
+        });
+    });
 });

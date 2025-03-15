@@ -4,12 +4,17 @@
     --secondary-color: #ff4d94;
     --whatsapp-color: #25D366;
     --whatsapp-hover: #128C7E;
-    --button-padding: 12px 30px;
-    --button-font-size: 1.1rem;
-    --header-height: 320px;
-    --logo-size: 200px;
+    --header-height: 160px;
+    --logo-size: 100px;
     --border-radius: 15px;
     --shadow: 0 4px 8px rgba(0,0,0,0.1);
+    --spacing-xs: 5px;
+    --spacing-sm: 8px;
+    --spacing-md: 15px;
+    --spacing-lg: 30px;
+    --header-height-compact: 120px;
+    --logo-size-compact: 80px;
+    --transition-speed: 0.3s;
 }
 
 /* Reset y estilos base */
@@ -22,59 +27,111 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.4;
+    color: var(--primary-color);
+}
+
+h1, h2, h3, p {
+    color: var(--primary-color);
 }
 
 /* Header */
 .header {
     background: white;
-    padding: 15px;
+    padding: var(--spacing-sm);
     box-shadow: var(--shadow);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
+    transition: all var(--transition-speed) ease;
+    height: var(--header-height);
+}
+
+.header.compact {
+    height: var(--header-height-compact);
+    padding: 8px;
+}
+
+.header.hidden {
+    transform: translateY(-100%);
 }
 
 .header-content {
     max-width: 1000px;
     margin: 0 auto;
     text-align: center;
+    transition: all var(--transition-speed) ease;
 }
 
 .logo {
     height: var(--logo-size);
-    margin-bottom: 15px;
+    margin-bottom: var(--spacing-sm);
+    transition: all var(--transition-speed) ease;
+}
+
+.header.compact .logo {
+    height: var(--logo-size-compact);
+    margin-bottom: 5px;
+}
+
+.header.compact h1 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.header.compact .nav-buttons {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.header.compact .nav-btn,
+.header.compact .whatsapp-btn {
+    padding: 8px 16px;
+    font-size: 1rem;
+    min-width: 100px;
+}
+
+.header.compact .nav-btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    min-width: 80px;
 }
 
 h1 {
-    margin-bottom: 12px;
+    margin-bottom: var(--spacing-sm);
     color: var(--primary-color);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
 }
 
 /* Navegación */
 .nav-buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    margin-top: 10px;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xs);
+    flex-direction: row; /* Force horizontal layout */
+    flex-wrap: nowrap; /* Prevent wrapping */
 }
 
 .nav-btn, .whatsapp-btn {
-    padding: var(--button-padding);
+    padding: 6px 15px;
     border: none;
     border-radius: 25px;
-    font-size: var(--button-font-size);
+    font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    min-width: 140px;
+    gap: var(--spacing-xs);
+    min-width: 90px;
     box-shadow: var(--shadow);
+    height: 40px;
+    color: white; /* Keep button text white for contrast */
 }
 
 .nav-btn {
@@ -99,7 +156,7 @@ h1 {
 
 /* Main Content */
 main {
-    margin-top: calc(var(--header-height) + 30px);
+    margin-top: calc(var(--header-height) + 50px);
     padding: 15px;
 }
 
@@ -118,23 +175,26 @@ main {
     position: relative;
     width: 100%;
     max-width: 1000px;
-    margin: 0 auto;
-    overflow: hidden;
+    margin: 30px auto;
+    padding-bottom: 10px;
 }
 
 .carousel-inner {
     position: relative;
     width: 100%;
-    height: 100%;
+    margin-bottom: 10px;
 }
 
 .carousel-slide {
     display: none;
     width: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .carousel-slide.active {
     display: block;
+    opacity: 1;
     animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -143,10 +203,11 @@ main {
     height: auto;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
+    margin-bottom: 20px;
 }
 
 .carousel-content {
-    padding: 20px;
+    padding: 20px 15px;
     text-align: center;
 }
 
@@ -157,15 +218,22 @@ main {
 }
 
 .carousel-content p {
+    color: var(--primary-color);
     margin-bottom: 15px;
-    color: #666;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    z-index: 2;
+    pointer-events: none; /* This allows clicking through the container */
 }
 
 .carousel-btn {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     border: none;
     border-radius: 50%;
     width: 40px;
@@ -173,42 +241,57 @@ main {
     font-size: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
-    z-index: 2;
+    box-shadow: var(--shadow);
+    pointer-events: auto; /* Re-enable pointer events for buttons */
 }
 
 .carousel-btn:hover {
     background: white;
-    box-shadow: var(--shadow);
+    transform: scale(1.1);
 }
 
-.prev {
+.carousel-btn.prev {
     left: 10px;
 }
 
-.next {
+.carousel-btn.next {
     right: 10px;
 }
 
+.carousel-navigation {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
 .carousel-dots {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
     gap: 8px;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
 }
 
 .dot {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .dot.active {
     background: var(--primary-color);
+    transform: scale(1.2);
+}
+
+.dot:hover {
+    background: var(--primary-color);
+    transform: scale(1.2);
 }
 
 /* Menu Container */
@@ -255,21 +338,21 @@ main {
 /* Footer */
 .footer {
     background: white;
-    padding: 40px 20px;
+    padding: 30px 10px;
     text-align: center;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-    margin-top: 40px;
+    margin-top: 5px;
 }
 
 .footer-logo {
     height: var(--logo-size);
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 .footer-title {
     color: var(--primary-color);
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+    font-size: 1rem;
+    margin-bottom: 10px;
     font-weight: 700;
 }
 
@@ -280,8 +363,8 @@ main {
 }
 
 .social-links img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     transition: transform 0.3s;
 }
 
@@ -301,18 +384,23 @@ main {
 /* Responsive Design */
 @media (max-width: 768px) {
     :root {
+        --header-height: 140px;
+        --logo-size: 80px;
         --button-padding: 10px 20px;
         --button-font-size: 1rem;
-        --logo-size: 150px;
+        --header-height-compact: 110px;
+        --logo-size-compact: 70px;
     }
 
     .nav-buttons {
-        gap: 15px;
+        gap: 6px;
         flex-wrap: wrap;
     }
 
     .nav-btn, .whatsapp-btn {
-        min-width: 120px;
+        min-width: 80px;
+        padding: 5px 12px;
+        font-size: 1rem;
     }
 
     .modal-content {
@@ -321,35 +409,60 @@ main {
     }
 
     .carousel-content h3 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .carousel-btn {
         width: 35px;
         height: 35px;
-        font-size: 18px;
+        font-size: 1rem;
+    }
+
+    .header.compact .nav-btn,
+    .header.compact .whatsapp-btn {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        min-width: 90px;
+    }
+
+    .carousel {
+        padding-bottom: 30px;
+    }
+    
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+        margin-bottom: var(--spacing-xs);
     }
 }
 
 @media (max-width: 480px) {
     :root {
-        --header-height: 280px;
-        --logo-size: 120px;
+        --header-height: 120px;
+        --logo-size: 60px;
     }
 
     .nav-buttons {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
+        gap: 4px;
+        flex-direction: row; /* Keep horizontal on mobile */
+        justify-content: center;
+        flex-wrap: nowrap;
     }
 
     .nav-btn, .whatsapp-btn {
         width: 100%;
         max-width: 200px;
+        padding: 4px 8px;
+        font-size: 0.75rem;
+        min-width: 70px;
     }
 
     h1 {
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
 
     .carousel-content h3 {
@@ -364,5 +477,9 @@ main {
 
     .carousel-content {
         padding: 15px 10px;
+    }
+
+    .carousel {
+        padding-bottom: 25px;
     }
 }
