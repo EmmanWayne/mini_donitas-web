@@ -113,74 +113,69 @@ document.addEventListener('DOMContentLoaded', function() {
     modalImg.className = 'modal-content';
     modal.appendChild(modalImg);
 
-    // Configuración de zoom
-    const zoomConfig = {
-        maxScale: 3,
-        minScale: 0.5,
-        defaultScale: 1,
-        scaleStep: 0.1
-    };
+    let currentScale = 1;
+    let startDistance = 0;
+    let initialScale = 1;
 
-    // Función para manejar el zoom
-    function handleZoom(element, deltaY) {
-        let scale = element.style.transform ? 
-            parseFloat(element.style.transform.replace('scale(', '').replace(')', '')) : 
-            zoomConfig.defaultScale;
-        
-        if (deltaY < 0) {
-            scale = Math.min(scale + zoomConfig.scaleStep, zoomConfig.maxScale);
-        } else {
-            scale = Math.max(scale - zoomConfig.scaleStep, zoomConfig.minScale);
+    // Prevenir comportamiento por defecto del scroll/touch
+    modal.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+    
+    // Manejar zoom con gestos
+    modalImg.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 2) {
+            startDistance = getDistance(e.touches[0], e.touches[1]);
+            initialScale = currentScale;
         }
-        
-        element.style.transform = `scale(${scale})`;
-        return scale;
+    }, { passive: false });
+
+    modalImg.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 2) {
+            const distance = getDistance(e.touches[0], e.touches[1]);
+            currentScale = Math.min(Math.max(initialScale * (distance / startDistance), 1), 3);
+            modalImg.style.transform = `scale(${currentScale})`;
+        }
+    }, { passive: false });
+
+    // Función para calcular distancia entre dos puntos
+    function getDistance(touch1, touch2) {
+        const dx = touch1.clientX - touch2.clientX;
+        const dy = touch1.clientY - touch2.clientY;
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
-    // Agregar zoom a imágenes del menú
+    // Abrir modal al hacer click en imagen
     document.querySelectorAll('.menu-img').forEach(img => {
-        img.addEventListener('click', function(e) {
-            e.stopPropagation();
+        img.addEventListener('click', function() {
             modal.classList.add('active');
             modalImg.src = this.src;
-            
-            // Resetear el zoom al abrir
-            modalImg.style.transform = `scale(${zoomConfig.defaultScale})`;
-            
-            // Ajustar tamaño para móviles
-            modalImg.style.maxWidth = '90vw';
-            modalImg.style.maxHeight = '80vh';
-            modalImg.style.objectFit = 'contain';
-            
+            modalImg.style.transform = 'scale(1)';
+            currentScale = 1;
             document.body.appendChild(modal);
             document.body.style.overflow = 'hidden';
         });
     });
 
-    // Gestos táctiles mejorados
-    let touchStartY = 0;
-    let currentScale = zoomConfig.defaultScale;
-
-    modalImg.addEventListener('touchstart', (e) => {
-        touchStartY = e.touches[0].clientY;
-    }, { passive: false });
-
-    modalImg.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-        const touchEndY = e.touches[0].clientY;
-        const deltaY = touchStartY - touchEndY;
-        
-        currentScale = handleZoom(modalImg, deltaY);
-        touchStartY = touchEndY;
-    }, { passive: false });
-
     // Cerrar modal
-    modal.addEventListener('click', () => {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-        if (modal.parentNode) {
-            modal.parentNode.removeChild(modal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            if (modal.parentNode) {
+                modal.parentNode.removeChild(modal);
+            }
+            currentScale = 1;
         }
-        currentScale = zoomConfig.defaultScale;
+    });
+
+    // Doble tap para zoom
+    let lastTap = 0;
+    modalImg.addEventListener('touchend', (e) => {
+        const currentTime = new Date().getTime();
+        const tapLength = currentTime - lastTap;
+        if (tapLength < 300 && tapLength > 0) {
+            currentScale = currentScale === 1 ? 2 : 1;
+            modalImg.style.transform = `scale(${currentScale})`;
+        }
+        lastTap = currentTime;
     });
 });
