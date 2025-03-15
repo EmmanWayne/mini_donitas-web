@@ -8,6 +8,8 @@
     --button-font-size: 1.1rem;
     --header-height: 320px;
     --logo-size: 200px;
+    --border-radius: 15px;
+    --shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 /* Reset y estilos base */
@@ -26,7 +28,7 @@ body {
 .header {
     background: white;
     padding: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow);
     position: fixed;
     width: 100%;
     top: 0;
@@ -50,7 +52,7 @@ h1 {
     font-size: 1.8rem;
 }
 
-/* Botones unificados */
+/* Navegación */
 .nav-buttons {
     display: flex;
     justify-content: center;
@@ -58,7 +60,6 @@ h1 {
     margin-top: 10px;
 }
 
-/* Estilo unificado para todos los botones */
 .nav-btn, .whatsapp-btn {
     padding: var(--button-padding);
     border: none;
@@ -73,7 +74,7 @@ h1 {
     justify-content: center;
     gap: 8px;
     min-width: 140px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow);
 }
 
 .nav-btn {
@@ -112,23 +113,13 @@ main {
     display: block;
 }
 
-/* Carousel */
+/* Carousel Styles */
 .carousel {
     position: relative;
     width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
     overflow: hidden;
-    margin: 20px 0;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-/* Altura específica para los carruseles */
-#donitas .carousel {
-    height: 600px;
-}
-
-#desayunos .carousel {
-    height: 700px;
 }
 
 .carousel-inner {
@@ -138,108 +129,86 @@ main {
 }
 
 .carousel-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
+    display: none;
     width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
 }
 
 .carousel-slide.active {
-    opacity: 1;
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .carousel-slide img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 15px;
-    cursor: zoom-in;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
 }
 
-/* Contenido del carrusel */
 .carousel-content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
     padding: 20px;
     text-align: center;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.carousel-slide.active .carousel-content {
-    opacity: 1;
 }
 
 .carousel-content h3 {
-    font-size: 1.4rem;
-    margin-bottom: 8px;
-    color: white;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1.5rem;
 }
 
 .carousel-content p {
-    font-size: 1rem;
     margin-bottom: 15px;
-    line-height: 1.4;
+    color: #666;
 }
 
-/* Botones del carrusel */
 .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.8);
     border: none;
-    color: #333;
-    padding: 15px;
-    cursor: pointer;
     border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
     transition: all 0.3s ease;
-    z-index: 10;
+    z-index: 2;
 }
 
 .carousel-btn:hover {
-    background: rgba(255,255,255,0.8);
-    transform: translateY(-50%) scale(1.1);
+    background: white;
+    box-shadow: var(--shadow);
 }
 
 .prev {
-    left: 20px;
+    left: 10px;
 }
 
 .next {
-    right: 20px;
+    right: 10px;
 }
 
 .carousel-dots {
     position: absolute;
-    bottom: 150px;
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 10px;
-    z-index: 20;
+    gap: 8px;
 }
 
 .dot {
-    width: 12px;
-    height: 12px;
-    background: rgba(255,255,255,0.5);
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background-color 0.3s ease;
 }
 
 .dot.active {
-    background: white;
+    background: var(--primary-color);
 }
 
 /* Menu Container */
@@ -253,13 +222,13 @@ main {
     width: 100%;
     max-width: 1000px;
     height: auto;
-    border-radius: 15px;
+    border-radius: var(--border-radius);
     margin-bottom: 20px;
-    cursor: zoom-in;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    box-shadow: var(--shadow);
 }
 
-/* Modal para zoom */
+/* Modal para imágenes */
 .modal {
     position: fixed;
     top: 0;
@@ -271,8 +240,6 @@ main {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    overflow: hidden;
-    touch-action: none;
 }
 
 .modal.active {
@@ -280,34 +247,9 @@ main {
 }
 
 .modal-content {
-    max-width: 100%;
+    max-width: 90%;
     max-height: 90vh;
     object-fit: contain;
-    transition: transform 0.3s ease;
-    transform-origin: center center;
-    touch-action: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-@media (max-width: 768px) {
-    .modal-content {
-        width: 100%;
-        height: auto;
-    }
-}
-
-@media (max-width: 768px) {
-    .modal-content {
-        width: auto;
-        height: auto;
-        max-width: 90vw;
-        max-height: 80vh;
-    }
-}
-
-.modal.active {
-    display: block;
 }
 
 /* Footer */
@@ -347,6 +289,15 @@ main {
     transform: scale(1.1);
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     :root {
@@ -364,121 +315,54 @@ main {
         min-width: 120px;
     }
 
-    #donitas .carousel {
-        height: 500px;
-    }
-
-    #desayunos .carousel {
-        height: 600px;
+    .modal-content {
+        width: 100%;
+        max-height: 80vh;
     }
 
     .carousel-content h3 {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 
-    .carousel-content p {
-        font-size: 0.9rem;
-        margin-bottom: 12px;
-    }
-
-    .carousel-dots {
-        bottom: 130px;
+    .carousel-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
     }
 }
 
 @media (max-width: 480px) {
     :root {
         --header-height: 280px;
-        --button-padding: 12px 15px;
         --logo-size: 120px;
-    }
-
-    .nav-buttons {
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 0 10px;
-        gap: 10px;
-    }
-
-    .nav-btn, .whatsapp-btn {
-        flex: 1;
-        min-width: 0;
-        max-width: 110px;
-        font-size: 0.9rem;
-        padding: 10px 12px;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-        margin-bottom: 10px;
-    }
-
-    #donitas .carousel {
-        height: 400px;
-    }
-
-    #desayunos .carousel {
-        height: 500px;
-    }
-
-    .carousel-content {
-        padding: 15px;
-    }
-
-    .carousel-content h3 {
-        font-size: 1.1rem;
-        margin-bottom: 5px;
-    }
-
-    .carousel-content p {
-        font-size: 0.8rem;
-        margin-bottom: 10px;
-    }
-
-    .carousel-btn {
-        padding: 10px;
-    }
-
-    .carousel-dots {
-        bottom: 120px;
-    }
-
-    .social-links {
-        gap: 20px;
-    }
-
-    .social-links img {
-        width: 40px;
-        height: 40px;
-    }
-}
-
-@media (max-width: 360px) {
-    :root {
-        --header-height: 320px;
-        --logo-size: 100px;
     }
 
     .nav-buttons {
         flex-direction: column;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
     }
 
     .nav-btn, .whatsapp-btn {
-        width: 80%;
-        max-width: none;
+        width: 100%;
+        max-width: 200px;
     }
 
-    #donitas .carousel {
-        height: 350px;
+    h1 {
+        font-size: 1.5rem;
     }
 
-    #desayunos .carousel {
-        height: 450px;
+    .carousel-content h3 {
+        font-size: 1.1rem;
     }
 
-    .carousel-dots {
-        bottom: 110px;
+    .carousel-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+
+    .carousel-content {
+        padding: 15px 10px;
     }
 }
